@@ -1,9 +1,19 @@
-const Posts = (data) => {
-  console.log(data.data);
+import { Link } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Post from "./Post";
+const Posts = (postsData) => {
+  console.log(postsData);
+
   {
-    data.data.map((i) => {
-      return <h1>{i.id}</h1>;
-    });
+    return (
+      <>
+        <div>
+          {postsData.postsData.map((i) => {
+            return <Post postData={i} />;
+          })}
+        </div>
+      </>
+    );
   }
 };
 

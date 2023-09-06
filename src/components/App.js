@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
+import { Fragment } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "../styles/App.css";
 import Posts from "./Posts";
 
 const App = () => {
-  const [postData, setPostData] = useState({
-    id: "hey",
-  });
+  const [postsData, setPostsData] = useState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(
-      "https://pravdaofficial.com/wp-json/wp/v2/posts?_fields=id,title,link"
+      "https://pravdaofficial.com/wp-json/wp/v2/posts?_fields=id,title,link,content"
     )
       .then((r) => {
         return r.json();
       })
       .then((data) => {
-        setPostData(data);
+        setPostsData(data);
         setLoading(false);
       });
   }, []);
@@ -25,12 +25,10 @@ const App = () => {
     return <h1>Loading</h1>;
   }
 
-  console.log(postData);
-
   return (
     <>
       <div className="App">Recent posts</div>
-      <Posts data={postData} />
+      <Posts postsData={postsData} />
     </>
   );
 };
